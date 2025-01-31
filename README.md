@@ -36,3 +36,61 @@ helm upgrade --install karpenter oci://public.ecr.aws/karpenter/karpenter --vers
 
 ```
 
+Apply the NodePool and EC2NodeClass configurations, create a nodepoo.yaml file
+
+```
+kubectl apply -f nodepool.yaml
+```
+
+## Install Action Controller:
+Install the GitHub Actions Controller using Helm:
+
+```
+helm install arc \
+    --namespace "arc-systems" \
+    --create-namespace \
+    oci://ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set-controller
+```
+Install the runner set:
+Create a Personal Access Token (PAT) for GitHub.
+
+```
+helm install "arc-runner-set" \
+    --namespace "arc-runners" \
+    --create-namespace \
+    --set githubConfigUrl="https://github.com/yourusername/yourreponame" \
+    --set githubConfigSecret.github_token="ghp_somepattokenhere342342234" \
+    --set "template.spec.containers[0].resources.requests.cpu=7" \
+    --set "template.spec.containers[0].resources.requests.memory=14Gi" \
+    --set "template.spec.containers[0].resources.limits.cpu=7" \
+    --set "template.spec.containers[0].resources.limits.memory=14Gi" \
+    --set "template.spec.containers[0].name=runner" \
+    --set "template.spec.containers[0].image=ghcr.io/actions/actions-runner:latest" \
+    --set "template.spec.containers[0].command[0]=/home/runner/run.sh" \
+    oci://ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set
+```
+## Create a GitHub Actions Workflow:
+
+```
+name: CI
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: arc-runner-set
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+      - name: Run a multi-line script
+        run: |
+          cat README.md
+```
+
+## Run the Workflow
+
+Trigger the workflow from the GitHub Actions tab in your repository. The runner will be provisioned by Karpenter, and the job will execute on the newly created instance. After the job completes, Karpenter will terminate the instance to save costs.
+
+
+
