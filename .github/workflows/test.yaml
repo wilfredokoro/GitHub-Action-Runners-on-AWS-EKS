@@ -1,0 +1,14 @@
+name: CI
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: arc-runner-set
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+      - name: Run a multi-line script
+        run: |
+          cat README.md

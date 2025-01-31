@@ -35,10 +35,10 @@ metadata:
   name: default
 spec:
   amiFamily: AL2 # Amazon Linux 2
-  role: "eks_node_group_role" 
+  role: "node-group-1-eks-node-group-20250131135249986400000002"
   subnetSelectorTerms:
     - tags:
-        karpenter.sh/discovery: "Cluster_Name"
+        karpenter.sh/discovery: "eks-pgoCPrAn"
   securityGroupSelectorTerms:
     - tags:
-        karpenter.sh/discovery: "Cluster_Name"
+        karpenter.sh/discovery: "eks-pgoCPrAn"
