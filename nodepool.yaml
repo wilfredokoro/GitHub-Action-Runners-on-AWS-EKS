@@ -38,7 +38,7 @@ spec:
   role: "node-group-1-eks-node-group-20250201020233931100000001"
   subnetSelectorTerms:
     - tags:
-        karpenter.sh/discovery: "eks-Qfww1ZlU"
+        karpenter.sh/discovery: "eks-I8J8n0yN"
   securityGroupSelectorTerms:
     - tags:
-        karpenter.sh/discovery: "eks-Qfww1ZlU"
+        karpenter.sh/discovery: "eks-I8J8n0yN"
