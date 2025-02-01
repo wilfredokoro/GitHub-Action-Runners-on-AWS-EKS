@@ -20,7 +20,7 @@ spec:
           values: ["c", "m", "r"]
         - key: karpenter.k8s.aws/instance-generation
           operator: Gt
-          values: ["0"]
+          values: ["1"]
       nodeClassRef:
         name: default
   limits:
@@ -35,10 +35,10 @@ metadata:
   name: default
 spec:
   amiFamily: AL2 # Amazon Linux 2
-  role: "node-group-1-eks-node-group-20250131172313865000000001"
+  role: "node-group-1-eks-node-group-20250201020233931100000001"
   subnetSelectorTerms:
     - tags:
-        karpenter.sh/discovery: "eks-q8ACJvJA"
+        karpenter.sh/discovery: "eks-Qfww1ZlU"
   securityGroupSelectorTerms:
     - tags:
-        karpenter.sh/discovery: "eks-q8ACJvJA"
+        karpenter.sh/discovery: "eks-Qfww1ZlU"
