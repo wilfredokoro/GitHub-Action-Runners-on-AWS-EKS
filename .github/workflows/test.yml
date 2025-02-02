@@ -1,4 +1,4 @@
-name: my new one
+name: best01
 on:
   workflow_dispatch:
 jobs:
